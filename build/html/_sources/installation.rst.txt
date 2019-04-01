@@ -65,8 +65,7 @@ In the project folder, create 5 different folders:
 
 For the pipeline we require a folder ``working_place``, ``input_place``, ``output_place``. However, in total we have 3 different import fits files (reference PSF, Nod A, Nod B) that we would like to have under a different tag in the database. Therefore we also create a folder ``input_place1`` and ``input_place2``
 
-The simulation data used as input can be downloaded |data|. Put `set1.fis` in ``input_place1``, `set2.fits`
-in ``input_place2`` and `Ref_PSF_aCenA.fits` into ``input_place``.
+The simulation data used as input can be downloaded |data|. Put `set1.fits` in ``input_place1``, `set2.fits` in ``input_place2`` and `Ref_PSF_aCenA.fits` into ``input_place``.
 
 The total script is then written in a .py file. You can download it |down_script|::
 
