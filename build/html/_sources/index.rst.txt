@@ -12,11 +12,3 @@ Welcome to NEAR's documentation!
 
    installation
 
-
-
-.. Indices and tables
-.. ==================
-
-.. * :ref:`genindex`
-.. * :ref:`modindex`
-.. * :ref:`search`
