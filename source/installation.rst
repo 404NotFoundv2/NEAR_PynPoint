@@ -65,7 +65,10 @@ In the project folder, create 5 different folders:
 
 For the pipeline we require a folder ``working_place``, ``input_place``, ``output_place``. However, in total we have 3 different import fits files (reference PSF, Nod A, Nod B) that we would like to have under a different tag in the database. Therefore we also create a folder ``input_place1`` and ``input_place2``
 
-The simulation data used as input can be downloaded |data|. The total script is then written in a .py file. You can download it |down_script|::
+The simulation data used as input can be downloaded |data|. Put `set1.fis` in ``input_place1``, `set2.fits`
+in ``input_place2`` and `Ref_PSF_aCenA.fits` into ``input_place``.
+
+The total script is then written in a .py file. You can download it |down_script|::
 
     import pynpoint as p
 
@@ -227,7 +230,7 @@ The contrast decrease after 1.8 arcseconds is a result of the sidelobes visible 
 
 .. image:: https://lh3.googleusercontent.com/6i9HxIqNP9cQRDmBBzxEHarLNODNr0UaGViTzooNqNYCbzXw03QZ006WrCQRl2VRp9jj49AH2aa_k1Ggkqj3VvQQM7qJDh4hKQDAm9G0DnOtB8sRgX_WB7RVUSoVqla_ZmR5gnsfZSnvT9DEPNYiw-Cf9gcV7wsDtOFP9UzDKTFkBSRPomTlboHkW_mLvQ50Pfi6Yc0uHK3XpEFTkwi4kWqUcYMPiowvd7q6m8-y1AbeUXOvR3f9lDQfo1o6sn4W6ZzSyVb9rr2izx-KXPjdxL3yh_WkDojXXEuugDISeMIxuf9J2ZvtHGvoCFn8AB7bevMsnKAIFI1FKiqxjoNXMJPvRBCuuEl1mHI21brO_lXwLuBIkqHhTXRWUUS9zMFhjIl_iqGdKDJ7As38ZGnvOsJ1z4dytteUG8hoepCPifyX5EZ7prg-mAQ18IgMabgGWqRIqZIj95VARnfhoneoxOBgeQAXBYUX5kqbbGeMBeweVyTweW37R1dO0KHG4z_y808O6hjwZ1ZfDktlrq35U19hi18gtMyvZOi_HzsHQ1KIbomTL3c6OKstXInTff4ONlqvJpV-MGuj5f9vrcrEFv71xEZQth1S9TgltasayljLIxHsR5z_QYbt5MTfBBvpANMhI5aBLHTdn2ouXF6vv9FKN9KwUu_wuNQBqfZMOL0vxB94m2ReTJMiTPHUD4jIpZPK02kQsOjAKNGylxU6QOs=w1273-h1134-no
   :width: 400
-  :alt:
+  :alt: PSF
 
 .. |all| raw:: html
 
@@ -235,7 +238,7 @@ The contrast decrease after 1.8 arcseconds is a result of the sidelobes visible 
 
 .. |down_script| raw:: html
 
-   <a href="https://drive.google.com/open?id=1j3CvWVynQYqtUU_CB3VQCienh8A_APMd" target="_blank">here</a>
+   <a href="https://drive.google.com/file/d/1j3CvWVynQYqtUU_CB3VQCienh8A_APMd/view" target="_blank">here</a>
 
 .. |data| raw:: html
 
