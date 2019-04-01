@@ -18,11 +18,11 @@
 # -- Project information -----------------------------------------------------
 
 project = 'NEAR'
-copyright = '2019, Jasper Jonker'
-author = 'Jasper Jonker'
+copyright = '2019, J. Jonker'
+author = 'PynPoint-team'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = '0.1'
 
 
 # -- General configuration ---------------------------------------------------
