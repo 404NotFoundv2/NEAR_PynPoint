@@ -84,10 +84,10 @@ The total script is then written in a .py file. You can download it |down_script
                           output_place_in=output_place)
 
     # Each module requires a name_in tag. This is an identifier for this specific module, allowing
-    you to run it alone, without running the other modules. At the end of the script it is shown
-    how to run each module individually.
+    # you to run it alone, without running the other modules. At the end of the script it is shown
+    # how to run each module individually.
     # The images are saved in a central database (in working_place). Each set of images
-    can be called with this tag from this database.
+    # can be called with this tag from this database.
     # At last, each module is added to the pipeline
 
     # Read the fits file of Nod A.
@@ -114,7 +114,7 @@ The total script is then written in a .py file. You can download it |down_script
     pipeline.add_module(subtract)
 
     # Crop the image around the center with a size of 5 x 5 arcseconds.
-    The center tag is set to None. This will use the center of the input image.
+    # The center tag is set to None. This will use the center of the input image.
     crop = p.CropImagesModule(name_in="crop",
                               image_in_tag="subtract",
                               image_out_tag="cropped",
@@ -140,7 +140,7 @@ The total script is then written in a .py file. You can download it |down_script
     pipeline.add_module(angle)
 
     # PCA with 10 principal components. I urge you to visit the pynpoint documentation for an
-    explanation for each keyword
+    # explanation for each keyword
     pca = p.PcaPsfSubtractionModule(name_in="pca",
                                     pca_numbers=10,
                                     images_in_tag="cropped",
