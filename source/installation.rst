@@ -34,7 +34,7 @@ If you do not use a virtual environment, you might need to add the '`- - user`' 
 The installation can be tested by starting Python in interactive mode and printing the PynPoint version::
 
     >>> import pynpoint
-    >>> print pynpoint.__version__
+    >>> print(pynpoint.__version__)
 
 A virtual environment is deactivate with::
 
@@ -67,7 +67,7 @@ For the pipeline we require a folder ``working_place``, ``input_place``, ``outpu
 
 The simulation data used as input can be downloaded |data|. Put `set1.fits` in ``input_place1``, `set2.fits` in ``input_place2`` and `Ref_PSF_aCenA.fits` into ``input_place``.
 
-The total script is then written in a .py file. You can download it |down_script|::
+The total script is then written in a .py file. You can download it |down_script|. Not all arguments of each function below are explained, but the full documentation of PynPoint is available |pynpoint|, providing more in-depth information. Lastly, if you encounter any errors/mistakes, please contact visit this |contributions|. We very much welcome active contributions::
 
     import pynpoint as p
 
@@ -78,11 +78,19 @@ The total script is then written in a .py file. You can download it |down_script
     input_place1 = "/path/to/input_place1/"
     input_place2 = "/path/to/input_place2/"
 
+    # Create a pipeline instance, which is the main building block of PynPoint
     pipeline = p.Pypeline(working_place_in=working_place,
                           input_place_in=input_place,
                           output_place_in=output_place)
 
-    # Read fits of Nod A
+    # Each module requires a name_in tag. This is an identifier for this specific module, allowing
+    you to run it alone, without running the other modules. At the end of the script it is shown
+    how to run each module individually.
+    # The images are saved in a central database (in working_place). Each set of images
+    can be called with this tag from this database.
+    # At last, each module is added to the pipeline
+
+    # Read the fits file of Nod A.
     inputa = p.FitsReadingModule(name_in="inputa",
                                  input_dir=input_place1,
                                  image_tag="input1",
@@ -98,14 +106,15 @@ The total script is then written in a .py file. You can download it |down_script
                                  check=True)
     pipeline.add_module(inputb)
 
-    # Subtract the two input tags
+    # Subtract the two input tags, Nod B from Nod A.
     subtract = p.SubtractImagesModule(name_in="subtract",
-                                      image_in_tags=("input1", "input2"),
+                                      image_in_tags=("input_place1", "input_place2"),
                                       image_out_tag="subtract",
                                       scaling=1.)
     pipeline.add_module(subtract)
 
-    # Crop the image around the center
+    # Crop the image around the center with a size of 5 x 5 arcseconds.
+    The center tag is set to None. This will use the center of the input image.
     crop = p.CropImagesModule(name_in="crop",
                               image_in_tag="subtract",
                               image_out_tag="cropped",
@@ -113,7 +122,7 @@ The total script is then written in a .py file. You can download it |down_script
                               center=None)
     pipeline.add_module(crop)
 
-    # Write the output 'cropped' to a fits file in the ouput_place directory
+    # Write the tag 'cropped' from the central database to a fits file in the ouput_place directory
     write = p.FitsWritingModule(name_in="write",
                                 file_name="cropped.fits",
                                 output_dir=None,
@@ -130,7 +139,8 @@ The total script is then written in a .py file. You can download it |down_script
                                        data_tag="cropped")
     pipeline.add_module(angle)
 
-    # PCA
+    # PCA with 10 principal components. I urge you to visit the pynpoint documentation for an
+    explanation for each keyword
     pca = p.PcaPsfSubtractionModule(name_in="pca",
                                     pca_numbers=10,
                                     images_in_tag="cropped",
@@ -147,7 +157,7 @@ The total script is then written in a .py file. You can download it |down_script
 
     # Visually inspect the residuals
     writepca = p.FitsWritingModule(name_in="writepca",
-                                   file_name="pca.fits",
+                                   file_name="residuals.fits",
                                    output_dir=None,
                                    data_tag="residuals",
                                    data_range=None,
@@ -243,4 +253,12 @@ The contrast decrease after 1.8 arcseconds is a result of the sidelobes visible 
 .. |data| raw:: html
 
    <a href="https://drive.google.com/open?id=1TPSgXjazewwBsBVe-Zu5fstf9X2nlwQX" target="_blank">here</a>
+
+.. |pynpoint| raw:: html
+
+   <a href="https://pynpoint.readthedocs.io/en/latest/" target="_blank">here</a>
+
+.. |contributions| raw:: html
+
+   <a href="https://pynpoint.readthedocs.io/en/latest/contributing.html#contributing" target="_blank">page</a>
 
