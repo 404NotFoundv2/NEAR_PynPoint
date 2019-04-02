@@ -216,6 +216,9 @@ The total script is then written in a .py file. You can download it |down_script
     # Run the pipeline
     pipeline.run()
 
+    # or run each module individually
+    pipeline.run_module("contrast1")
+
 When the script starts running, PynPoint creates a ``PynPoint_config.ini`` file in ``working_place``. In this file, edit ``PIXSCALE`` to 0.045 for VISIR. Also, set ``CPU`` and ``MEMORY`` to a value desired.
 
 .. _results:
