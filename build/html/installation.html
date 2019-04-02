@@ -199,15 +199,15 @@
 </div></blockquote>
 <p>For the pipeline we require a folder <code class="docutils literal notranslate"><span class="pre">working_place</span></code>, <code class="docutils literal notranslate"><span class="pre">input_place</span></code>, <code class="docutils literal notranslate"><span class="pre">output_place</span></code>. However, in total we have 3 different import fits files (reference PSF, Nod A, Nod B) that we would like to have under a different tag in the database. Therefore we also create a folder <code class="docutils literal notranslate"><span class="pre">input_place1</span></code> and <code class="docutils literal notranslate"><span class="pre">input_place2</span></code></p>
 <p>The simulation data used as input can be downloaded <a href="https://drive.google.com/open?id=1TPSgXjazewwBsBVe-Zu5fstf9X2nlwQX" target="_blank">here</a>. Put <cite>set1.fits</cite> in <code class="docutils literal notranslate"><span class="pre">input_place1</span></code>, <cite>set2.fits</cite> in <code class="docutils literal notranslate"><span class="pre">input_place2</span></code> and <cite>Ref_PSF_aCenA.fits</cite> into <code class="docutils literal notranslate"><span class="pre">input_place</span></code>.</p>
-<p>The total script is then written in a .py file. You can download it <a href="https://drive.google.com/file/d/1j3CvWVynQYqtUU_CB3VQCienh8A_APMd/view" target="_blank">here</a>:</p>
+<p>The total script is then written in a .py file. You can download it <a href="https://drive.google.com/open?id=1yEpG4-uv7i2QL6fYxpvF7XzxpDltHrDB" target="_blank">here</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pynpoint</span> <span class="k">as</span> <span class="nn">p</span>
 
 <span class="c1"># Define working place of this project</span>
 <span class="n">working_place</span> <span class="o">=</span> <span class="s2">&quot;/path/to/working_place/&quot;</span>
 <span class="n">output_place</span> <span class="o">=</span> <span class="s2">&quot;/path/to/output_place/&quot;</span>
 <span class="n">input_place</span> <span class="o">=</span> <span class="s2">&quot;/path/to/input_place/&quot;</span>
-<span class="n">input1</span> <span class="o">=</span> <span class="s2">&quot;/path/to/input_place1/&quot;</span>
-<span class="n">input2</span> <span class="o">=</span> <span class="s2">&quot;/path/to/input_place2/&quot;</span>
+<span class="n">input_place1</span> <span class="o">=</span> <span class="s2">&quot;/path/to/input_place1/&quot;</span>
+<span class="n">input_place2</span> <span class="o">=</span> <span class="s2">&quot;/path/to/input_place2/&quot;</span>
 
 <span class="n">pipeline</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">Pypeline</span><span class="p">(</span><span class="n">working_place_in</span><span class="o">=</span><span class="n">working_place</span><span class="p">,</span>
                       <span class="n">input_place_in</span><span class="o">=</span><span class="n">input_place</span><span class="p">,</span>
@@ -215,7 +215,7 @@
 
 <span class="c1"># Read fits of Nod A</span>
 <span class="n">inputa</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">FitsReadingModule</span><span class="p">(</span><span class="n">name_in</span><span class="o">=</span><span class="s2">&quot;inputa&quot;</span><span class="p">,</span>
-                             <span class="n">input_dir</span><span class="o">=</span><span class="n">input1</span><span class="p">,</span>
+                             <span class="n">input_dir</span><span class="o">=</span><span class="n">input_place1</span><span class="p">,</span>
                              <span class="n">image_tag</span><span class="o">=</span><span class="s2">&quot;input1&quot;</span><span class="p">,</span>
                              <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                              <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -223,7 +223,7 @@
 
 <span class="c1"># Read fits of Nod B</span>
 <span class="n">inputb</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">FitsReadingModule</span><span class="p">(</span><span class="n">name_in</span><span class="o">=</span><span class="s2">&quot;inputb&quot;</span><span class="p">,</span>
-                             <span class="n">input_dir</span><span class="o">=</span><span class="n">input2</span><span class="p">,</span>
+                             <span class="n">input_dir</span><span class="o">=</span><span class="n">input_place2</span><span class="p">,</span>
                              <span class="n">image_tag</span><span class="o">=</span><span class="s2">&quot;input2&quot;</span><span class="p">,</span>
                              <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                              <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

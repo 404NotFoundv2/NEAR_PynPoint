@@ -75,8 +75,8 @@ The total script is then written in a .py file. You can download it |down_script
     working_place = "/path/to/working_place/"
     output_place = "/path/to/output_place/"
     input_place = "/path/to/input_place/"
-    input1 = "/path/to/input_place1/"
-    input2 = "/path/to/input_place2/"
+    input_place1 = "/path/to/input_place1/"
+    input_place2 = "/path/to/input_place2/"
 
     pipeline = p.Pypeline(working_place_in=working_place,
                           input_place_in=input_place,
@@ -84,7 +84,7 @@ The total script is then written in a .py file. You can download it |down_script
 
     # Read fits of Nod A
     inputa = p.FitsReadingModule(name_in="inputa",
-                                 input_dir=input1,
+                                 input_dir=input_place1,
                                  image_tag="input1",
                                  overwrite=True,
                                  check=True)
@@ -92,7 +92,7 @@ The total script is then written in a .py file. You can download it |down_script
 
     # Read fits of Nod B
     inputb = p.FitsReadingModule(name_in="inputb",
-                                 input_dir=input2,
+                                 input_dir=input_place2,
                                  image_tag="input2",
                                  overwrite=True,
                                  check=True)
@@ -238,7 +238,7 @@ The contrast decrease after 1.8 arcseconds is a result of the sidelobes visible 
 
 .. |down_script| raw:: html
 
-   <a href="https://drive.google.com/file/d/1j3CvWVynQYqtUU_CB3VQCienh8A_APMd/view" target="_blank">here</a>
+   <a href="https://drive.google.com/open?id=1yEpG4-uv7i2QL6fYxpvF7XzxpDltHrDB" target="_blank">here</a>
 
 .. |data| raw:: html
 
