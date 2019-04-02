@@ -110,7 +110,7 @@ Lastly, for an end-to-end processing example of a pupil-stabilized data set of b
 
     # Subtract the two input tags, Nod B from Nod A.
     subtract = p.SubtractImagesModule(name_in="subtract",
-                                      image_in_tags=("input_place1", "input_place2"),
+                                      image_in_tags=("input1", "input2"),
                                       image_out_tag="subtract",
                                       scaling=1.)
     pipeline.add_module(subtract)
