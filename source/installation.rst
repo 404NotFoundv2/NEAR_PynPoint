@@ -67,7 +67,7 @@ For the pipeline we require a folder ``working_place``, ``input_place``, ``outpu
 
 The simulation data used as input can be downloaded |data|. Put `set1.fits` in ``input_place1``, `set2.fits` in ``input_place2`` and `Ref_PSF_aCenA.fits` into ``input_place``.
 
-The total script is then written in a .py file. You can download it |down_script|. Not all arguments of each function below are explained. Please visit the the full documentation of |pynpoint|, providing more in-depth information. Lastly, if you encounter any errors/mistakes, please contact visit this |contributions|. We very much welcome active contributions.
+The total script is then written in a .py file. You can download it |down_script|. Not all arguments of each function below are explained. Please visit the the full documentation of |pynpoint|, providing more in-depth information. Lastly, if you encounter any errors/mistakes, please visit this |contributions|. We very much welcome active contributions.
 
 Lastly, for an end-to-end processing example of a pupil-stabilized data set of beta Pic in PynPoint, see |stolker|::
 
