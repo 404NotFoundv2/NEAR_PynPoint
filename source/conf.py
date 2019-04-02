@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'NEAR'
-copyright = '2019, J. Jonker'
+copyright = '2019, PynPoint'
 author = 'PynPoint-team'
 
 # The full version, including alpha/beta/rc tags
