@@ -67,7 +67,9 @@ For the pipeline we require a folder ``working_place``, ``input_place``, ``outpu
 
 The simulation data used as input can be downloaded |data|. Put `set1.fits` in ``input_place1``, `set2.fits` in ``input_place2`` and `Ref_PSF_aCenA.fits` into ``input_place``.
 
-The total script is then written in a .py file. You can download it |down_script|. Not all arguments of each function below are explained, but the full documentation of PynPoint is available |pynpoint|, providing more in-depth information. Lastly, if you encounter any errors/mistakes, please contact visit this |contributions|. We very much welcome active contributions::
+The total script is then written in a .py file. You can download it |down_script|. Not all arguments of each function below are explained. Please visit the the full documentation of |pynpoint|, providing more in-depth information. Lastly, if you encounter any errors/mistakes, please contact visit this |contributions|. We very much welcome active contributions.
+
+Lastly, for an end-to-end processing example of a pupil-stabilized data set of beta Pic in PynPoint, see |stolker|::
 
     import pynpoint as p
 
@@ -259,9 +261,21 @@ The contrast decrease after 1.8 arcseconds is a result of the sidelobes visible 
 
 .. |pynpoint| raw:: html
 
-   <a href="https://pynpoint.readthedocs.io/en/latest/" target="_blank">here</a>
+   <a href="https://pynpoint.readthedocs.io/en/latest/" target="_blank">PynPoint</a>
 
 .. |contributions| raw:: html
 
    <a href="https://pynpoint.readthedocs.io/en/latest/contributing.html#contributing" target="_blank">page</a>
+
+.. |stolker| raw:: html
+
+   <a href="http://adsabs.harvard.edu/abs/2019A%26A...622A.156C" target="_blank">Stolker et al. (2019)</a>
+
+
+.. _attribution:
+
+Attribution
+-----------
+
+If you use PynPoint in your publication then please cite `Stolker et al. (2019) <http://adsabs.harvard.edu/abs/2019A%26A...621A..59S>`_. Please also cite `Amara & Quanz (2012) <http://adsabs.harvard.edu/abs/2012MNRAS.427..948A>`_ as the origin of PynPoint, which focused initially on the use of principal component analysis (PCA) as a PSF subtraction method. In case you use specifically the PCA-based background subtraction module or the wavelet based speckle suppression module, please give credit to `Hunziker et al. (2018) <http://adsabs.harvard.edu/abs/2018A%26A...611A..23H>`_ or `Bonse, Quanz & Amara (2018) <http://adsabs.harvard.edu/abs/2018arXiv180405063B>`_, respectively.
 
