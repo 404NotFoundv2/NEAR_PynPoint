@@ -86,6 +86,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#install-pynpoint">Install PynPoint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-pynpoint">Running PynPoint</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#results">Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#attribution">Attribution</a></li>
 </ul>
 </li>
 </ul>
@@ -182,7 +183,7 @@
 </div>
 <p>The installation can be tested by starting Python in interactive mode and printing the PynPoint version:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pynpoint</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">pynpoint</span><span class="o">.</span><span class="n">__version__</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pynpoint</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>A virtual environment is deactivate with:</p>
@@ -199,7 +200,8 @@
 </div></blockquote>
 <p>For the pipeline we require a folder <code class="docutils literal notranslate"><span class="pre">working_place</span></code>, <code class="docutils literal notranslate"><span class="pre">input_place</span></code>, <code class="docutils literal notranslate"><span class="pre">output_place</span></code>. However, in total we have 3 different import fits files (reference PSF, Nod A, Nod B) that we would like to have under a different tag in the database. Therefore we also create a folder <code class="docutils literal notranslate"><span class="pre">input_place1</span></code> and <code class="docutils literal notranslate"><span class="pre">input_place2</span></code></p>
 <p>The simulation data used as input can be downloaded <a href="https://drive.google.com/open?id=1TPSgXjazewwBsBVe-Zu5fstf9X2nlwQX" target="_blank">here</a>. Put <cite>set1.fits</cite> in <code class="docutils literal notranslate"><span class="pre">input_place1</span></code>, <cite>set2.fits</cite> in <code class="docutils literal notranslate"><span class="pre">input_place2</span></code> and <cite>Ref_PSF_aCenA.fits</cite> into <code class="docutils literal notranslate"><span class="pre">input_place</span></code>.</p>
-<p>The total script is then written in a .py file. You can download it <a href="https://drive.google.com/open?id=1yEpG4-uv7i2QL6fYxpvF7XzxpDltHrDB" target="_blank">here</a>:</p>
+<p>The total script is then written in a .py file. You can download it <a href="https://drive.google.com/open?id=1k8alPA_yHdGCUCf21xjDDuAZs6BbbJg4" target="_blank">here</a>. Not all arguments of each function below are explained. Please visit the the full documentation of <a href="https://pynpoint.readthedocs.io/en/latest/" target="_blank">PynPoint</a>, providing more in-depth information. Lastly, if you encounter any errors/mistakes, please visit this <a href="https://pynpoint.readthedocs.io/en/latest/contributing.html#contributing" target="_blank">page</a>. We very much welcome active contributions.</p>
+<p>Lastly, for an end-to-end processing example of a pupil-stabilized data set of beta Pic in PynPoint, see <a href="http://adsabs.harvard.edu/abs/2019A%26A...622A.156C" target="_blank">Stolker et al. (2019)</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pynpoint</span> <span class="k">as</span> <span class="nn">p</span>
 
 <span class="c1"># Define working place of this project</span>
@@ -209,11 +211,19 @@
 <span class="n">input_place1</span> <span class="o">=</span> <span class="s2">&quot;/path/to/input_place1/&quot;</span>
 <span class="n">input_place2</span> <span class="o">=</span> <span class="s2">&quot;/path/to/input_place2/&quot;</span>
 
+<span class="c1"># Create a pipeline instance, which is the main building block of PynPoint</span>
 <span class="n">pipeline</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">Pypeline</span><span class="p">(</span><span class="n">working_place_in</span><span class="o">=</span><span class="n">working_place</span><span class="p">,</span>
                       <span class="n">input_place_in</span><span class="o">=</span><span class="n">input_place</span><span class="p">,</span>
                       <span class="n">output_place_in</span><span class="o">=</span><span class="n">output_place</span><span class="p">)</span>
 
-<span class="c1"># Read fits of Nod A</span>
+<span class="c1"># Each module requires a name_in tag. This is an identifier for this specific module, allowing</span>
+<span class="c1"># you to run it alone, without running the other modules. At the end of the script it is shown</span>
+<span class="c1"># how to run each module individually.</span>
+<span class="c1"># The images are saved in a central database (in working_place). Each set of images</span>
+<span class="c1"># can be called with this tag from this database.</span>
+<span class="c1"># At last, each module is added to the pipeline</span>
+
+<span class="c1"># Read the fits file of Nod A.</span>
 <span class="n">inputa</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">FitsReadingModule</span><span class="p">(</span><span class="n">name_in</span><span class="o">=</span><span class="s2">&quot;inputa&quot;</span><span class="p">,</span>
                              <span class="n">input_dir</span><span class="o">=</span><span class="n">input_place1</span><span class="p">,</span>
                              <span class="n">image_tag</span><span class="o">=</span><span class="s2">&quot;input1&quot;</span><span class="p">,</span>
@@ -229,14 +239,15 @@
                              <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">pipeline</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">inputb</span><span class="p">)</span>
 
-<span class="c1"># Subtract the two input tags</span>
+<span class="c1"># Subtract the two input tags, Nod B from Nod A.</span>
 <span class="n">subtract</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">SubtractImagesModule</span><span class="p">(</span><span class="n">name_in</span><span class="o">=</span><span class="s2">&quot;subtract&quot;</span><span class="p">,</span>
-                                  <span class="n">image_in_tags</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;input1&quot;</span><span class="p">,</span> <span class="s2">&quot;input2&quot;</span><span class="p">),</span>
+                                  <span class="n">image_in_tags</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;input_place1&quot;</span><span class="p">,</span> <span class="s2">&quot;input_place2&quot;</span><span class="p">),</span>
                                   <span class="n">image_out_tag</span><span class="o">=</span><span class="s2">&quot;subtract&quot;</span><span class="p">,</span>
                                   <span class="n">scaling</span><span class="o">=</span><span class="mf">1.</span><span class="p">)</span>
 <span class="n">pipeline</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">subtract</span><span class="p">)</span>
 
-<span class="c1"># Crop the image around the center</span>
+<span class="c1"># Crop the image around the center with a size of 5 x 5 arcseconds.</span>
+<span class="c1"># The center tag is set to None. This will use the center of the input image.</span>
 <span class="n">crop</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">CropImagesModule</span><span class="p">(</span><span class="n">name_in</span><span class="o">=</span><span class="s2">&quot;crop&quot;</span><span class="p">,</span>
                           <span class="n">image_in_tag</span><span class="o">=</span><span class="s2">&quot;subtract&quot;</span><span class="p">,</span>
                           <span class="n">image_out_tag</span><span class="o">=</span><span class="s2">&quot;cropped&quot;</span><span class="p">,</span>
@@ -244,7 +255,7 @@
                           <span class="n">center</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">pipeline</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">crop</span><span class="p">)</span>
 
-<span class="c1"># Write the output &#39;cropped&#39; to a fits file in the ouput_place directory</span>
+<span class="c1"># Write the tag &#39;cropped&#39; from the central database to a fits file in the ouput_place directory</span>
 <span class="n">write</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">FitsWritingModule</span><span class="p">(</span><span class="n">name_in</span><span class="o">=</span><span class="s2">&quot;write&quot;</span><span class="p">,</span>
                             <span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;cropped.fits&quot;</span><span class="p">,</span>
                             <span class="n">output_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -261,7 +272,8 @@
                                    <span class="n">data_tag</span><span class="o">=</span><span class="s2">&quot;cropped&quot;</span><span class="p">)</span>
 <span class="n">pipeline</span><span class="o">.</span><span class="n">add_module</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
 
-<span class="c1"># PCA</span>
+<span class="c1"># PCA with 10 principal components. I urge you to visit the pynpoint documentation for an</span>
+<span class="c1"># explanation for each keyword</span>
 <span class="n">pca</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">PcaPsfSubtractionModule</span><span class="p">(</span><span class="n">name_in</span><span class="o">=</span><span class="s2">&quot;pca&quot;</span><span class="p">,</span>
                                 <span class="n">pca_numbers</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
                                 <span class="n">images_in_tag</span><span class="o">=</span><span class="s2">&quot;cropped&quot;</span><span class="p">,</span>
@@ -278,7 +290,7 @@
 
 <span class="c1"># Visually inspect the residuals</span>
 <span class="n">writepca</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">FitsWritingModule</span><span class="p">(</span><span class="n">name_in</span><span class="o">=</span><span class="s2">&quot;writepca&quot;</span><span class="p">,</span>
-                               <span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;pca.fits&quot;</span><span class="p">,</span>
+                               <span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;residuals.fits&quot;</span><span class="p">,</span>
                                <span class="n">output_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                                <span class="n">data_tag</span><span class="o">=</span><span class="s2">&quot;residuals&quot;</span><span class="p">,</span>
                                <span class="n">data_range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -336,6 +348,9 @@
 
 <span class="c1"># Run the pipeline</span>
 <span class="n">pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="c1"># or run each module individually</span>
+<span class="n">pipeline</span><span class="o">.</span><span class="n">run_module</span><span class="p">(</span><span class="s2">&quot;contrast1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>When the script starts running, PynPoint creates a <code class="docutils literal notranslate"><span class="pre">PynPoint_config.ini</span></code> file in <code class="docutils literal notranslate"><span class="pre">working_place</span></code>. In this file, edit <code class="docutils literal notranslate"><span class="pre">PIXSCALE</span></code> to 0.045 for VISIR. Also, set <code class="docutils literal notranslate"><span class="pre">CPU</span></code> and <code class="docutils literal notranslate"><span class="pre">MEMORY</span></code> to a value desired.</p>
@@ -348,6 +363,10 @@
 <a class="reference internal image-reference" href="https://lh3.googleusercontent.com/wKRxB9hnf5CNG6L5pcPP-cfc7nc0G56nTauctrySP2GpSvg3IAYCrmfNPEItY91qQOGp2ehvWHsO4RRvuE8l7ooMtmiYKY3BCehzSNfiAWcWtNjVJP0QpGdx1OiKdWHZJBb4neGxfoCC7J5gFdH2cugG25GUsS13UitLQkCA6GTzUNZsmlE6LUzDJv4-C5AmuB83UvAYgK8Za4IKct1z2M7x7MsUcRRAy9p6I9NWyiazSz8AZodCkhnP2sVmXDeDEiY0lt6AemXjjiDWRQFqYxsa4eWPlycepefMGKZ5LF2GUnzDv2Ao7SweLnuzmMDNDBtIfugRfvNXu0QphHWgSB_s33n4I-ByqZN0v2zR_zH3NJLKMHqzl5nuyHSe4dunnzfBQjDA8VOSTXljPhlZu6U0zukMC1NjJtzeH_x6DoiaNifvwcQpeVSTqBCYEPUHkdb03nQEFJfZvPApOEo1GYJinS2MrZU0wVQxN8hrJDBQhH-0WLEI6IJAGRWTaO7kkYi2Ybds4r-G9JJmvacPQDftdzHwxAq7XY4lnbyw-g6hJZzX_wSFrVMPvXHt722EwEWkd8nuUc-_KET-t54NZdt9UehPunkNW5VJc7HcrEZXrqvOFGQtI1G7v4xhQzopayn6MwJOM65kqi_ie0T45n-5Dz6k2AuQHqi6LEJt-P3owZFiKv5xnUvSSprLYqEbsSVlcmPRYtE4Y6Jc_xDxpg8=w640-h480-no"><img alt="ContrastCurve" src="https://lh3.googleusercontent.com/wKRxB9hnf5CNG6L5pcPP-cfc7nc0G56nTauctrySP2GpSvg3IAYCrmfNPEItY91qQOGp2ehvWHsO4RRvuE8l7ooMtmiYKY3BCehzSNfiAWcWtNjVJP0QpGdx1OiKdWHZJBb4neGxfoCC7J5gFdH2cugG25GUsS13UitLQkCA6GTzUNZsmlE6LUzDJv4-C5AmuB83UvAYgK8Za4IKct1z2M7x7MsUcRRAy9p6I9NWyiazSz8AZodCkhnP2sVmXDeDEiY0lt6AemXjjiDWRQFqYxsa4eWPlycepefMGKZ5LF2GUnzDv2Ao7SweLnuzmMDNDBtIfugRfvNXu0QphHWgSB_s33n4I-ByqZN0v2zR_zH3NJLKMHqzl5nuyHSe4dunnzfBQjDA8VOSTXljPhlZu6U0zukMC1NjJtzeH_x6DoiaNifvwcQpeVSTqBCYEPUHkdb03nQEFJfZvPApOEo1GYJinS2MrZU0wVQxN8hrJDBQhH-0WLEI6IJAGRWTaO7kkYi2Ybds4r-G9JJmvacPQDftdzHwxAq7XY4lnbyw-g6hJZzX_wSFrVMPvXHt722EwEWkd8nuUc-_KET-t54NZdt9UehPunkNW5VJc7HcrEZXrqvOFGQtI1G7v4xhQzopayn6MwJOM65kqi_ie0T45n-5Dz6k2AuQHqi6LEJt-P3owZFiKv5xnUvSSprLYqEbsSVlcmPRYtE4Y6Jc_xDxpg8=w640-h480-no" style="width: 600px;" /></a>
 <p>The contrast decrease after 1.8 arcseconds is a result of the sidelobes visible in the image (negative psf residue from the subtraction). This becomes more clear in the image below (cropped.fits file), where the green circle has a radius of 1.8 arcseconds.</p>
 <a class="reference internal image-reference" href="https://lh3.googleusercontent.com/6i9HxIqNP9cQRDmBBzxEHarLNODNr0UaGViTzooNqNYCbzXw03QZ006WrCQRl2VRp9jj49AH2aa_k1Ggkqj3VvQQM7qJDh4hKQDAm9G0DnOtB8sRgX_WB7RVUSoVqla_ZmR5gnsfZSnvT9DEPNYiw-Cf9gcV7wsDtOFP9UzDKTFkBSRPomTlboHkW_mLvQ50Pfi6Yc0uHK3XpEFTkwi4kWqUcYMPiowvd7q6m8-y1AbeUXOvR3f9lDQfo1o6sn4W6ZzSyVb9rr2izx-KXPjdxL3yh_WkDojXXEuugDISeMIxuf9J2ZvtHGvoCFn8AB7bevMsnKAIFI1FKiqxjoNXMJPvRBCuuEl1mHI21brO_lXwLuBIkqHhTXRWUUS9zMFhjIl_iqGdKDJ7As38ZGnvOsJ1z4dytteUG8hoepCPifyX5EZ7prg-mAQ18IgMabgGWqRIqZIj95VARnfhoneoxOBgeQAXBYUX5kqbbGeMBeweVyTweW37R1dO0KHG4z_y808O6hjwZ1ZfDktlrq35U19hi18gtMyvZOi_HzsHQ1KIbomTL3c6OKstXInTff4ONlqvJpV-MGuj5f9vrcrEFv71xEZQth1S9TgltasayljLIxHsR5z_QYbt5MTfBBvpANMhI5aBLHTdn2ouXF6vv9FKN9KwUu_wuNQBqfZMOL0vxB94m2ReTJMiTPHUD4jIpZPK02kQsOjAKNGylxU6QOs=w1273-h1134-no"><img alt="PSF" src="https://lh3.googleusercontent.com/6i9HxIqNP9cQRDmBBzxEHarLNODNr0UaGViTzooNqNYCbzXw03QZ006WrCQRl2VRp9jj49AH2aa_k1Ggkqj3VvQQM7qJDh4hKQDAm9G0DnOtB8sRgX_WB7RVUSoVqla_ZmR5gnsfZSnvT9DEPNYiw-Cf9gcV7wsDtOFP9UzDKTFkBSRPomTlboHkW_mLvQ50Pfi6Yc0uHK3XpEFTkwi4kWqUcYMPiowvd7q6m8-y1AbeUXOvR3f9lDQfo1o6sn4W6ZzSyVb9rr2izx-KXPjdxL3yh_WkDojXXEuugDISeMIxuf9J2ZvtHGvoCFn8AB7bevMsnKAIFI1FKiqxjoNXMJPvRBCuuEl1mHI21brO_lXwLuBIkqHhTXRWUUS9zMFhjIl_iqGdKDJ7As38ZGnvOsJ1z4dytteUG8hoepCPifyX5EZ7prg-mAQ18IgMabgGWqRIqZIj95VARnfhoneoxOBgeQAXBYUX5kqbbGeMBeweVyTweW37R1dO0KHG4z_y808O6hjwZ1ZfDktlrq35U19hi18gtMyvZOi_HzsHQ1KIbomTL3c6OKstXInTff4ONlqvJpV-MGuj5f9vrcrEFv71xEZQth1S9TgltasayljLIxHsR5z_QYbt5MTfBBvpANMhI5aBLHTdn2ouXF6vv9FKN9KwUu_wuNQBqfZMOL0vxB94m2ReTJMiTPHUD4jIpZPK02kQsOjAKNGylxU6QOs=w1273-h1134-no" style="width: 600px;" /></a>
+</div>
+<div class="section" id="attribution">
+<span id="id3"></span><h2>Attribution<a class="headerlink" href="#attribution" title="Permalink to this headline">¶</a></h2>
+<p>If you use PynPoint in your publication then please cite <a class="reference external" href="http://adsabs.harvard.edu/abs/2019A%26A...621A..59S">Stolker et al. (2019)</a>. Please also cite <a class="reference external" href="http://adsabs.harvard.edu/abs/2012MNRAS.427..948A">Amara &amp; Quanz (2012)</a> as the origin of PynPoint, which focused initially on the use of principal component analysis (PCA) as a PSF subtraction method. In case you use specifically the PCA-based background subtraction module or the wavelet based speckle suppression module, please give credit to <a class="reference external" href="http://adsabs.harvard.edu/abs/2018A%26A...611A..23H">Hunziker et al. (2018)</a> or <a class="reference external" href="http://adsabs.harvard.edu/abs/2018arXiv180405063B">Bonse, Quanz &amp; Amara (2018)</a>, respectively.</p>
 </div>
 </div>
 
